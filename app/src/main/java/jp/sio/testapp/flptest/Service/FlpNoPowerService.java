@@ -57,6 +57,8 @@ public class FlpNoPowerService extends Service implements
 
     //設定値の格納用変数
     private final String locationType = "FlpNoPower";
+    private boolean settingIsSetInterval;
+    private int settingSetInterval;
     private int settingCount;   // 0の場合は無制限に測位を続ける
     private long settingInterval;
     private long settingTimeout;
@@ -177,6 +179,8 @@ public class FlpNoPowerService extends Service implements
 
         //設定値の取得
         // *1000は sec → msec の変換
+        settingIsSetInterval = intent.getBooleanExtra(getBaseContext().getString(R.string.settingIsSetInterval),false);
+        settingSetInterval = intent.getIntExtra(getBaseContext().getString(R.string.settingSetInterval),0) * 1000;
         settingCount = intent.getIntExtra(getBaseContext().getString(R.string.settingCount), 0);
         settingTimeout = intent.getLongExtra(getBaseContext().getString(R.string.settingTimeout), 0) * 1000;
         settingInterval = intent.getLongExtra(getBaseContext().getString(R.string.settingInterval), 0) * 1000;
@@ -194,7 +198,6 @@ public class FlpNoPowerService extends Service implements
         fusedLocationProviderClient = new FusedLocationProviderClient(this);
         locationRequest = LocationRequest.create();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-
         if(!mGoogleApiClient.isConnected()){
             mGoogleApiClient.connect();
         }
@@ -209,6 +212,9 @@ public class FlpNoPowerService extends Service implements
         L.d("locationStart");
         locationChangeCount = 0;
         createLocationCallback();
+        if(settingIsSetInterval){
+            locationRequest.setInterval(settingSetInterval);
+        }
         if (settingIsCold) {
             coldLocation(fusedLocationProviderClient,locationManager);
         }

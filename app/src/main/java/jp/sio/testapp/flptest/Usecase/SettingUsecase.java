@@ -30,8 +30,11 @@ public class SettingUsecase {
     }
 
     /*********************ここからSetter**********************/
-    public void setSetInteravl(int interval){
-        settingPref.setSetInterval(interval);
+    public void setIsSetInterval(boolean isSetInterval){
+        settingPref.setIsSetInterval(isSetInterval);
+    }
+    public void setSetInteravl(int setinterval){
+        settingPref.setSetInterval(setinterval);
     }
     public void setCount(int count){
         settingPref.setCount(count);
@@ -59,6 +62,10 @@ public class SettingUsecase {
      /*****************ここからGetter*******************/
     public String getLocationType(){
         return settingPref.getLocationType();
+    }
+    public boolean getIsSetInterval(){
+        L.d("getSetInterval:" + settingPref.getIsSetInterval() + "");
+        return settingPref.getIsSetInterval();
     }
     public int getSetInterval(){
         return settingPref.getSetInterval();

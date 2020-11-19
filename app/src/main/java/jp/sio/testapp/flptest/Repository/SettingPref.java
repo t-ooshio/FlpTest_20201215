@@ -18,6 +18,7 @@ public class SettingPref {
     private Context context;
 
     //Default設定
+    private final boolean defIsSetInterval = false;
     private final int defSetInterval = 0;
     private final int defCount = 0;
     private final long defInterval = 75;
@@ -45,6 +46,11 @@ public class SettingPref {
         L.d("SettingPrefLocationType:" + locationType);
         commitSetting();
     }
+    public void setIsSetInterval(boolean isSetInterval){
+        editor.putBoolean(context.getString(R.string.settingIsSetInterval),isSetInterval);
+        commitSetting();
+    }
+
     public void setSetInterval(int setInterval){
         editor.putInt(context.getString(R.string.settingSetInterval),setInterval);
         commitSetting();
@@ -77,6 +83,10 @@ public class SettingPref {
     public String getLocationType(){
         return settingPref.getString(context.getResources().getString(R.string.settingLocationType),defLocationType);
     }
+    public boolean getIsSetInterval(){
+        return settingPref.getBoolean(context.getString(R.string.settingIsSetInterval),defIsSetInterval);
+    }
+
     public int getSetInterval(){
         return settingPref.getInt(context.getString(R.string.settingSetInterval),defSetInterval);
     }
@@ -101,6 +111,7 @@ public class SettingPref {
 
     public void setDefaultSetting(){
         setLocationType(defLocationType);
+        setIsSetInterval(defIsSetInterval);
         setSetInterval(defSetInterval);
         setCount(defCount);
         setInterval(defInterval);

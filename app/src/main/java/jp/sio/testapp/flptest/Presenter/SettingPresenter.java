@@ -38,6 +38,8 @@ public class SettingPresenter {
         }
         settingusecase.setLocationType(locationTyep);
 
+        settingusecase.setIsSetInterval(activity.isSetInterval());
+        settingusecase.setSetInteravl(activity.getSetInterval());
         settingusecase.setCount(activity.getCount());
         settingusecase.setInterval(activity.getInterval());
         settingusecase.setTimeout(activity.getTimeout());
@@ -60,6 +62,12 @@ public class SettingPresenter {
         }else if(locationType.equals(activity.getResources().getString(R.string.locationFlpNoPower))) {
             activity.enableRadioButtonFlpNoPower();
         }
+        if(settingusecase.getIsSetInterval()) {
+            activity.enableIsSetInterval();
+        }else {
+            activity.disableIsSetInterval();
+        }
+        activity.setSetInterval(settingusecase.getSetInterval());
         activity.setCount(settingusecase.getCount());
         activity.setInterval(settingusecase.getInterval());
         activity.setTimeout(settingusecase.getTimeout());

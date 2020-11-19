@@ -75,8 +75,8 @@ public class SettingActivity extends AppCompatActivity {
     public void disableIsSetInterval(){
         checkBoxisSetInterval.setChecked(false);
     }
-    public void setSetInterval(int interval){
-        editTextSetInterval.setText(Integer.toString(interval));
+    public void setSetInterval(int setinterval){
+        editTextSetInterval.setText(Integer.toString(setinterval));
     }
     public void setCount(int count){
         editTextCount.setText(Integer.toString(count));
@@ -113,7 +113,7 @@ public class SettingActivity extends AppCompatActivity {
     }
     public int getSetInterval(){
         String interval;
-        interval = editTextInterval.getText().toString();
+        interval = editTextSetInterval.getText().toString();
         return Integer.parseInt(interval);
     }
     public boolean isSetInterval(){

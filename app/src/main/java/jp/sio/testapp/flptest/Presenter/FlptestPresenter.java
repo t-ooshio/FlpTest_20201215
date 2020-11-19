@@ -54,6 +54,8 @@ public class FlptestPresenter {
     private FlpNoPowerService flpNoPowerService;
 
     private String locationType;
+    private boolean isSetInterval;
+    private int setInterval;
     private int count;
     private long timeout;
     private long interval;
@@ -148,13 +150,9 @@ public class FlptestPresenter {
     public void locationStart(){
         IntentFilter filter = null;
         getSetting();
-        L.d(locationType + "," + count + "," + timeout
-                + "," + interval + "," + suplendwaittime + ","
-                + delassisttime + "," + isCold);
         //ログファイルの生成
         locationLog = new LocationLog(activity);
         L.d("before_makeLogFile");
-        L.d(settingHeader);
         locationLog.makeLogFile(settingHeader);
         locationLog.writeLog(
                 locationType + "," + count + "," + timeout
@@ -350,6 +348,8 @@ public class FlptestPresenter {
     }
 
     private void setSetting(Intent locationServiceIntent){
+        locationServiceIntent.putExtra(activity.getResources().getString(R.string.settingSetInterval),setInterval);
+        locationServiceIntent.putExtra(activity.getResources().getString(R.string.settingIsSetInterval),isSetInterval);
         locationServiceIntent.putExtra(activity.getResources().getString(R.string.settingCount),count);
         locationServiceIntent.putExtra(activity.getResources().getString(R.string.settingTimeout),timeout);
         locationServiceIntent.putExtra(activity.getResources().getString(R.string.settingInterval),interval);
@@ -364,6 +364,8 @@ public class FlptestPresenter {
      */
     private void getSetting(){
         locationType = settingUsecase.getLocationType();
+        isSetInterval = settingUsecase.getIsSetInterval();
+        setInterval = settingUsecase.getSetInterval();
         count = settingUsecase.getCount();
         timeout = settingUsecase.getTimeout();
         interval = settingUsecase.getInterval();
